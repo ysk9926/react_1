@@ -9,17 +9,52 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     function App() {
-      const [counter, setCounter] = React.useState(0);
-      const onClick = () => {
-        setCounter(counter + 1);
+      const [amount, setAmount] = React.useState();
+      const [flipped, setFlipped] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setFlipped((current) => !current);
       };
       return (
         <div>
-          <h3>Total clicked : {counter}</h3>
-          <button onClick={onClick}> Click Me </button>
+          <h1> Converter </h1>
+          <div>
+            <label htmlFor="minute"> Minute </label>
+            <input
+              value={flipped ? amount * 60 : amount}
+              id="minute"
+              type="number"
+              placeholder="Mimutes"
+              onChange={onChange}
+              disabled={flipped}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours"> Hours </label>
+            <input
+              value={flipped ? amount : Math.floor(amount / 60)}
+              id="hours"
+              type="number"
+              placeholder="Hours"
+              onChange={onChange}
+              disabled={!flipped}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
         </div>
       );
     }
     ReactDOM.render(<App />, root);
   </script>
 </html>
+
+<!-- 
+  1. 시간변환 & 단위변환 두개 컴퍼넌트 만들기
+  2. 선택 버튼 만들기 (select & option 활용)
+  3. useState 완벽 이해하기 
+-->
