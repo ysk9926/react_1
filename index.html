@@ -8,20 +8,19 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function App() {
+    function Time() {
       const [amount, setAmount] = React.useState();
       const [flipped, setFlipped] = React.useState(false);
       const onChange = (event) => {
         setAmount(event.target.value);
       };
-      const reset = () => setAmount(0);
+      const reset = () => setAmount("");
       const onFlip = () => {
         reset();
         setFlipped((current) => !current);
       };
       return (
         <div>
-          <h1> Converter </h1>
           <div>
             <label htmlFor="minute"> Minute </label>
             <input
@@ -46,6 +45,67 @@
           </div>
           <button onClick={reset}>Reset</button>
           <button onClick={onFlip}>Flip</button>
+        </div>
+      );
+    }
+    function Distance() {
+      const [amount, setAmount] = React.useState();
+      const [flip, setFlip] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const Reset = () => setAmount("");
+      const onFlip = () => {
+        Reset();
+        setFlip((current) => !current);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="km"> Km </label>
+            <input
+              value={flip ? Math.floor(amount * 1.6) : amount}
+              id="km"
+              type="number"
+              placeholder="Km"
+              onChange={onChange}
+              disabled={flip}
+            />
+          </div>
+          <div>
+            <label htmlFor="mile"> Mile </label>
+            <input
+              value={flip ? amount : Math.floor(amount / 1.6)}
+              id="mile"
+              type="number"
+              placeholder="Mile"
+              onChange={onChange}
+              disabled={!flip}
+            />
+          </div>
+          <button onClick={Reset}> Reset </button>
+          <button onClick={onFlip}> Flip </button>
+        </div>
+      );
+    }
+    function App() {
+      const [choice, setChoice] = React.useState("0");
+      const onSelect = (event) => {
+        setChoice(event.target.value);
+      };
+      return (
+        <div>
+          <h1>Converter</h1>
+          <select value={choice} onChange={onSelect}>
+            <option value="0"> choose </option>
+            <option value="1"> Minute & Time </option>
+            <option value="2"> Km & Mile </option>
+          </select>
+          <hr />
+          {choice === "0" ? "Please choose your converter" : null}
+          {choice === "1" ? <Time /> : null}
+          {choice === "2" ? <Distance /> : null}
         </div>
       );
     }
