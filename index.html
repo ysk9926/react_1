@@ -8,113 +8,32 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Time() {
-      const [amount, setAmount] = React.useState();
-      const [flipped, setFlipped] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => setAmount("");
-      const onFlip = () => {
-        reset();
-        setFlipped((current) => !current);
-      };
+    function Btn({ text, fontSize }) {
       return (
-        <div>
-          <div>
-            <label htmlFor="minute"> Minute </label>
-            <input
-              value={flipped ? amount * 60 : amount}
-              id="minute"
-              type="number"
-              placeholder="Mimutes"
-              onChange={onChange}
-              disabled={flipped}
-            />
-          </div>
-          <div>
-            <label htmlFor="hours"> Hours </label>
-            <input
-              value={flipped ? amount : Math.floor(amount / 60)}
-              id="hours"
-              type="number"
-              placeholder="Hours"
-              onChange={onChange}
-              disabled={!flipped}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
-        </div>
+        <button
+          style={{
+            backgroundColor: "orange",
+            borderRadius: 10,
+            border: 0,
+            color: "white",
+            padding: "10px 15px",
+            margin: "0px 5px",
+            fontSize: fontSize,
+          }}
+        >
+          {text}
+        </button>
       );
     }
-    function Distance() {
-      const [amount, setAmount] = React.useState();
-      const [flip, setFlip] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const Reset = () => setAmount("");
-      const onFlip = () => {
-        Reset();
-        setFlip((current) => !current);
-      };
 
-      return (
-        <div>
-          <div>
-            <label htmlFor="km"> Km </label>
-            <input
-              value={flip ? Math.floor(amount * 1.6) : amount}
-              id="km"
-              type="number"
-              placeholder="Km"
-              onChange={onChange}
-              disabled={flip}
-            />
-          </div>
-          <div>
-            <label htmlFor="mile"> Mile </label>
-            <input
-              value={flip ? amount : Math.floor(amount / 1.6)}
-              id="mile"
-              type="number"
-              placeholder="Mile"
-              onChange={onChange}
-              disabled={!flip}
-            />
-          </div>
-          <button onClick={Reset}> Reset </button>
-          <button onClick={onFlip}> Flip </button>
-        </div>
-      );
-    }
     function App() {
-      const [choice, setChoice] = React.useState("0");
-      const onSelect = (event) => {
-        setChoice(event.target.value);
-      };
       return (
         <div>
-          <h1>Converter</h1>
-          <select value={choice} onChange={onSelect}>
-            <option value="0"> choose </option>
-            <option value="1"> Minute & Time </option>
-            <option value="2"> Km & Mile </option>
-          </select>
-          <hr />
-          {choice === "0" ? "Please choose your converter" : null}
-          {choice === "1" ? <Time /> : null}
-          {choice === "2" ? <Distance /> : null}
+          <Btn text="click_1" fontSize={29} />
+          <Btn text="click_2" />
         </div>
       );
     }
     ReactDOM.render(<App />, root);
   </script>
 </html>
-
-<!-- 
-  1. 시간변환 & 단위변환 두개 컴퍼넌트 만들기
-  2. 선택 버튼 만들기 (select & option 활용)
-  3. useState 완벽 이해하기 
--->
